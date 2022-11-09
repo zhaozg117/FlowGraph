@@ -1,0 +1,68 @@
+$base-background-color: #10161b;
+$background-color-light: rgba(24, 48, 54, 0.5);
+$node-border-color-primary: #194449;
+$node-color-text-primary: #1ca7a7;
+$node-color-text-light: #52ffff;
+.page {
+  height: 100%;
+}
+.header-title {
+  width: 100%;
+  height: 46px;
+  line-height: 46px;
+  color: $node-color-text-light;
+  padding-left: 24px;
+  font-size: 14px;
+  font-weight: bold;
+  background: $background-color-light;
+  border-bottom: 1px solid $node-border-color-primary;
+}
+.search-input {
+  width: 88%;
+  height: 32px;
+  margin: 24px 6% 18px;
+}
+.list-box {
+  height: calc(100% - 130px);
+  overflow: auto;
+  // padding-left: 20px;
+}
+.custom-tree-node {
+  width: 86%;
+}
+
+::v-deep {
+  .el-tree {
+    background-color: $base-background-color;
+  }
+  .el-tree-node {
+    color: $node-color-text-primary;
+  }
+  .el-tree-node > .el-tree-node__content {
+    cursor: not-allowed;
+    &:hover {
+      background-color: $base-background-color;
+    }
+  }
+  .is-focusable {
+    color: $node-color-text-primary;
+  }
+  .is-focusable > .el-tree-node__content {
+    cursor: pointer;
+    &:hover {
+      color: $node-color-text-light;
+      background-color: $background-color-light;
+    }
+  }
+  .is-current.is-focusable {
+    color: $node-color-text-light;
+    background: $background-color-light;
+  }
+  .el-tree-node__label {
+    width: 210px;
+    overflow-x: hidden;
+    white-space: nowrap;
+    letter-spacing: normal;
+    text-overflow: ellipsis;
+  }
+}

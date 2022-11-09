@@ -1,0 +1,55 @@
+@import "../../theme/index.scss";
+.container {
+  width: 100%;
+  height: 100%;
+  &.disabled-pointer-events * {
+    pointer-events: none;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  path {
+    fill: #4682b4;
+  }
+  .svg-polygon {
+    stroke-width: 1px;
+    stroke: $node-border-color-primary;
+  }
+  .svg-title-text {
+    fill: $node-color-text-primary;
+    font-size: 20px;
+    text-anchor: middle;
+    font-weight: 400;
+    /* 文本水平居中 */
+  }
+  .svg-sub-text {
+    fill: $node-color-text-dark;
+    font-size: 16px;
+    text-anchor: middle;
+    font-weight: normal;
+    /* 文本水平居中 */
+  }
+}
+.x6-node-selected {
+  .container {
+    border-width: 2px;
+    .svg-polygon {
+      stroke: $node-border-color-light;
+      stroke-width: 2px;
+    }
+    .svg-title-text {
+      fill: $node-color-text-light;
+    }
+    .svg-sub-text {
+      fill: $node-color-text-primary;
+    }
+  }
+}
+.container.disabled-pointer-events {
+  .svg-polygon {
+    stroke: $node-border-color-light;
+    filter: url(#drop-shadow);
+  }
+}

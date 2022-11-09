@@ -1,0 +1,34 @@
+.bar {
+  width: 100%;
+  margin-left: 16px;
+  margin-right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  .item {
+    border: none;
+    padding: 0;
+    margin-right: 2px;
+  }
+}
+.icon-list {
+  .el-button {
+    font-size: 12px;
+    &.is-disabled {
+      opacity: 0.6;
+    }
+  }
+}
+
+.btn-red {
+  color: #e18680;
+  &:hover {
+    color: #cf3b31;
+  }
+}
+.btn-green {
+  color: rgba(54, 204, 204, 0.8);
+  &:hover {
+    color: rgba(44, 254, 255, 1);
+  }
+}
