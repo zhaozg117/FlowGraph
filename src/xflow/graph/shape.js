@@ -98,26 +98,26 @@ NodeGroup.config({
       refY: 15,
     },
     //  父节点折叠/展开按钮
-    // ,buttonGroup: {
-    //   refX: "100%",
-    //   refX2: -25,
-    //   refY: 13
-    // },
-    // button: {
-    //   height: 14,
-    //   width: 16,
-    //   rx: 2,
-    //   ry: 2,
-    //   fill: "#f5f5f5",
-    //   stroke: "#ccc",
-    //   cursor: "pointer",
-    //   event: "node:collapse"
-    // },
-    // buttonSign: {
-    //   refX: 3,
-    //   refY: 2,
-    //   stroke: "#808080"
-    // }
+    buttonGroup: {
+      refX: "100%",
+      refX2: -25,
+      refY: 13,
+    },
+    button: {
+      height: 14,
+      width: 16,
+      rx: 2,
+      ry: 2,
+      fill: "#f5f5f5",
+      stroke: "#ccc",
+      cursor: "pointer",
+      event: "node:collapse",
+    },
+    buttonSign: {
+      refX: 3,
+      refY: 2,
+      stroke: "#808080",
+    },
   },
 });
 // 自定义边

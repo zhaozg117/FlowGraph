@@ -36,8 +36,8 @@ export default class FlowGraph {
         visible: false,
         args: {
           color: "#a0a0a0",
-          thickness: 1
-        }
+          thickness: 1,
+        },
       },
 
       // 画布调整
@@ -47,7 +47,7 @@ export default class FlowGraph {
         pageBreak: true,
         pannable: true,
         // modifiers: "ctrl",
-        autoResize: true
+        autoResize: true,
       },
       // 配置全局连线规则
       connecting: {
@@ -58,7 +58,7 @@ export default class FlowGraph {
         allowLoop: false,
         highlight: false,
         snap: {
-          radius: 40
+          radius: 40,
         },
         createEdge({ sourceCell }) {
           let id = uuid();
@@ -83,7 +83,7 @@ export default class FlowGraph {
           // sourceView,
           // targetView,
           sourceMagnet,
-          targetMagnet
+          targetMagnet,
         }) {
           // if (sourceView === targetView) {
           //   return false;
@@ -107,11 +107,11 @@ export default class FlowGraph {
               padding: 4,
               attrs: {
                 strokeWidth: 4,
-                stroke: "#31a3ff"
-              }
-            }
-          }
-        }
+                stroke: "#31a3ff",
+              },
+            },
+          },
+        },
       },
       // 设置滚轮缩放画布
       mousewheel: true,
@@ -137,8 +137,8 @@ export default class FlowGraph {
         rubberEdge: true, // 框选可以选中edge
         rubberNode: true, // 框选可以选中node
         showNodeSelectionBox: false,
-        showEdgeSelectionBox: false
-      }
+        showEdgeSelectionBox: false,
+      },
     };
     return defaultConfig;
   }
@@ -168,7 +168,7 @@ export default class FlowGraph {
   /*画布内容节点居中*/
   graphToCenter(len = 5, options = {}) {
     let defaultOptions = {
-      padding: { left: 40, top: 20, right: 40, bottom: 40 }
+      padding: { left: 40, top: 20, right: 40, bottom: 40 },
     };
     Object.assign(defaultOptions, options);
     let nodes = this.graph.getNodes();
@@ -196,13 +196,14 @@ export default class FlowGraph {
     const gridLayout = new GridLayout({
       type: "grid",
       preventOverlap: true,
-      preventOverlapPadding: 80
+      preventOverlapPadding: 80,
     });
     const model = gridLayout.layout(data);
     this.initGraphShape(model);
   }
   /*层次自动布局*/
   layoutDagre(grahpData) {
+    console.log("layoutDagre start");
     let data = { nodes: [], edges: [] };
     grahpData.cells.forEach((item) => {
       if (item.shape === "edge") {
@@ -224,7 +225,7 @@ export default class FlowGraph {
       //   if (d.id == "6" || d.id == "7") return 20;
       //   return 20;
       // },
-      controlPoints: true
+      controlPoints: true,
     });
     const model = dagreLayout.layout(data);
     this.initGraphShape(model);
@@ -267,9 +268,9 @@ export default class FlowGraph {
       id: id,
       shape: shape,
       ports: {
-        items: portsItems
+        items: portsItems,
       },
-      data: obj
+      data: obj,
     });
     this.dnd.start(node, event);
     this.graph.resetSelection(id);
@@ -291,10 +292,10 @@ export default class FlowGraph {
       id: id,
       shape: shape,
       ports: {
-        items: portsItems
+        items: portsItems,
       },
       position: position,
-      data: obj
+      data: obj,
     });
     this.graph.resetSelection(id);
     return cell;
@@ -305,13 +306,13 @@ export default class FlowGraph {
     // this.graph.freeze();
     let source = {
       cell: cell.id,
-      port: this.getPort(cell, "out")
+      port: this.getPort(cell, "out"),
     };
     // this.graph.freeze();
     let options = {
       incoming: false,
       outgoing: true,
-      deep: false
+      deep: false,
     };
     let cel = this.graph.getCellById(cell?.id || cell?.uuid);
     let neighNodes = this.graph.getNeighbors(cel, options);
@@ -331,7 +332,7 @@ export default class FlowGraph {
         let portId2 = uuid();
         let twoPorts = [
           { id: portId, group: "in" },
-          { id: portId2, group: "out" }
+          { id: portId2, group: "out" },
         ];
         let portsItems =
           shape == "sub" ? [{ id: portId, group: "in" }] : twoPorts;
@@ -339,7 +340,7 @@ export default class FlowGraph {
         let node = this.addNode(shape, portsItems, { x: 300, y: 300 }, item);
         let target = {
           cell: node.id,
-          port: this.getPort(node, "in")
+          port: this.getPort(node, "in"),
         };
         this.addEdges(shape, source, target);
         if (children && children.length > 0) {
@@ -363,7 +364,7 @@ export default class FlowGraph {
       data: { mark: { isValid: true, isCreate: true, isUpdate: false } },
       zIndex: 5,
       source: source,
-      target: target
+      target: target,
     };
     let curEdge = edgeList["defaultEdge"] || edgeList["commonEdge"];
     let edge = Object.assign({}, curEdge, edgeOptions);
@@ -374,7 +375,7 @@ export default class FlowGraph {
   removeChildNode(cell, list = [], shape = "sub") {
     let options = {
       incoming: false,
-      outgoing: true
+      outgoing: true,
     };
     let cells = [];
     let arr = [];
@@ -419,7 +420,7 @@ export default class FlowGraph {
       rankdir: dir,
       nodesep: 66,
       ranksep: 96,
-      ranker: "network-simplex"
+      ranker: "network-simplex",
     };
     const g = new dagre.graphlib.Graph();
     g.setGraph(options);
@@ -440,15 +441,16 @@ export default class FlowGraph {
     dagre.layout(g);
 
     // this.graph.freeze();
-    let delX = 0, delY = 0
+    let delX = 0,
+      delY = 0;
     g.nodes().forEach((id) => {
       const node = this.graph.getCell(id);
       if (node) {
         const pos = g.node(id);
         if (node.data.position) {
-          const {x, y} = node.data.position
-          delX = x - pos.x
-          delY = y - pos.y
+          const { x, y } = node.data.position;
+          delX = x - pos.x;
+          delY = y - pos.y;
           node.position(x, y);
         } else {
           if (node.data.isPosition) {
@@ -474,7 +476,7 @@ export default class FlowGraph {
         const x = sourceBBox.x + fix + gap / 2;
         edge.setVertices([
           { x, y: sourceBBox.center.y },
-          { x, y: targetBBox.center.y }
+          { x, y: targetBBox.center.y },
         ]);
       } else if (
         (dir === "TB" || dir === "BT") &&
@@ -488,7 +490,7 @@ export default class FlowGraph {
         const y = sourceBBox.y + fix + gap / 2;
         edge.setVertices([
           { x: sourceBBox.center.x, y },
-          { x: targetBBox.center.x, y }
+          { x: targetBBox.center.x, y },
         ]);
       } else {
         edge.setVertices([]);
@@ -510,7 +512,7 @@ export default class FlowGraph {
       rankdir: dir,
       nodesep: 66,
       ranksep: 86,
-      ranker: "network-simplex"
+      ranker: "network-simplex",
     };
     const g = new dagre.graphlib.Graph();
     g.setGraph(options);
@@ -583,7 +585,7 @@ export default class FlowGraph {
         const x = sourceBBox.x + fix + gap / 2;
         edge.setVertices([
           { x, y: sourceBBox.center.y },
-          { x, y: targetBBox.center.y }
+          { x, y: targetBBox.center.y },
         ]);
       } else if (
         (dir === "TB" || dir === "BT") &&
@@ -597,7 +599,7 @@ export default class FlowGraph {
         const y = targetBBox.center.y - fix;
         edge.setVertices([
           { x: sourceBBox.center.x, y },
-          { x: targetBBox.center.x, y: y }
+          { x: targetBBox.center.x, y: y },
         ]);
       } else {
         edge.setVertices([]);
@@ -625,7 +627,7 @@ export default class FlowGraph {
       //   if (d.id == "6" || d.id == "7") return 20;
       //   return 20;
       // },
-      controlPoints: true
+      controlPoints: true,
     });
     const model = dagreLayout.layout(data);
     const cells = [...model.nodes, ...model.edges];
@@ -640,13 +642,13 @@ export default class FlowGraph {
       name: "状态" + this.nodeOrder,
       mark: {
         isCreate: true,
-        isUpdate: false
-      }
+        isUpdate: false,
+      },
     };
     let options = {
       silent: false,
       overwrite: false,
-      deep: true
+      deep: true,
     };
     this.nodeOrder++;
     position && cell.setProp("position", position);
@@ -665,8 +667,8 @@ export default class FlowGraph {
       id: id,
       uuid: id,
       mark: {
-        isCreate: true
-      }
+        isCreate: true,
+      },
     };
     obj.id = id;
     if (obj.shape === "state") {
@@ -678,7 +680,7 @@ export default class FlowGraph {
     } else {
       obj.position = {
         x: obj.position.x + 60,
-        y: obj.position.y + 120
+        y: obj.position.y + 120,
       };
     }
     merge(obj.data, data);
@@ -703,7 +705,7 @@ export default class FlowGraph {
     this.dnd = new Addon.Dnd({
       target: this.graph,
       scaled: true,
-      containerParent: stencilWrap
+      containerParent: stencilWrap,
     });
 
     // stencilWrap.appendChild(this.dnd.container);
@@ -759,7 +761,7 @@ export default class FlowGraph {
       } else {
         flash(cell);
         const edges = graph.model.getConnectedEdges(cell, {
-          outgoing: true
+          outgoing: true,
         });
         edges.forEach((edge) => graph.trigger("signal", edge));
       }

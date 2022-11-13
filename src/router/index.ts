@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 const Team = () => import("@/views/TeamTree.vue");
 const x6Demo = () => import("@/views/x6Demo.vue");
+const TreeGraph = () => import("@/views/TreeGraph.vue");
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,14 @@ const router = new VueRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: x6Demo,
+    },
+    {
+      path: "/treeGraph",
+      name: "treeGraph",
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: TreeGraph,
     },
   ],
 });

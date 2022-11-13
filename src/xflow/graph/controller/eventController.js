@@ -115,6 +115,12 @@ export default class EventController {
             });
             break;
           }
+          case "node:collapse": {
+            this.graph.on("node:collapse", ({ view }) => {
+              event.handler && event.handler({ node: view.cell });
+            });
+            break;
+          }
           case "edge:connected": {
             this.graph.on("edge:connected", (args) => {
               // let { isNew, edge }=args;
@@ -161,7 +167,7 @@ export default class EventController {
               // console.log("cellViews",cellViews)
               // window.cellViews=cellViews;
               // cellViews.forEach(views=>views.update())
-              let Edges = this.graph.getEdges();
+              const Edges = this.graph.getEdges();
               Edges.forEach((edge) => {
                 this.graph.findViewByCell(edge).update();
               });

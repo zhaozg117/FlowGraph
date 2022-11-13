@@ -2,6 +2,8 @@
   <div class="container">
     <!-- <div class="node-icon"><i class="el-icon-s-tools"></i></div> -->
     <div class="title">{{ nodeData.name || nodeData.label }}</div>
+    <i v-show="expand" class="btn">aaaa-</i>
+    <i v-show="!expand" class="btn">bbbb+</i>
   </div>
 </template>
 
@@ -11,10 +13,11 @@ export default {
   data() {
     return {
       nodeData: {
-        label: "编组字节点"
+        label: "编组字节点",
       },
       currentNode: null,
-      change: false
+      change: false,
+      expand: false,
     };
   },
   inject: ["getGraph", "getNode"],
@@ -33,6 +36,9 @@ export default {
       this.currentNode.on("change:data", ({ current }) => {
         this.nodeData = current;
       });
+      this.currentNode.on("node:collapse", ({ current }) => {
+        this.nodeData = current;
+      });
       this.currentNode.on("change:position", ({ cell }) => {
         this.setIsUpdate();
       });
@@ -44,8 +50,8 @@ export default {
       if (this.isChange === false) {
         this.isChange = true;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

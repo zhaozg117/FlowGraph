@@ -256,6 +256,7 @@ export default {
           node.shape = "all";
           node.component = "all-node";
         } else {
+          // node.shape = "flowGroupNode";
           node.shape = "formation";
           node.component = "formation-node";
           node.size = { width: 40, height: 200 };
